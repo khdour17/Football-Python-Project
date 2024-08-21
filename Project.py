@@ -99,8 +99,8 @@ class Match:
         self.AwayTeam = AwayTeam
         self.HomeGoals = 0
         self.AwayGoals = 0
-        self.HomeScorers = []
-        self.AwayScorers = []
+        self.HomeScorers = {}
+        self.AwayScorers = {}
         
     def simulateMatch(self) -> str:
         self.HomeGoals = random.randint(0, 5)
@@ -112,11 +112,17 @@ class Match:
         for _ in range(self.HomeGoals):
             player = self.HomeTeam.players[random.randint(1,3)]
             player.addGoal()
-            self.HomeScorers.append(player.name)
+            if player.name not in self.HomeScorers:
+                self.HomeScorers[player.name] = 1
+            else:
+                self.HomeScorers[player.name] += 1
         for _ in range(self.AwayGoals):
             player = self.AwayTeam.players[random.randint(1,3)]
             player.addGoal()
-            self.AwayScorers.append(player.name)            
+            if player.name not in self.AwayScorers:
+                self.AwayScorers[player.name] = 1
+            else:
+                self.AwayScorers[player.name] += 1            
         
     def __str__(self):
         return (f"{self.HomeTeam.name} {self.HomeGoals} - {self.AwayGoals} {self.AwayTeam.name}" )
@@ -165,10 +171,22 @@ class League:
                 match.simulateMatch()
                 print(match)
                 if match.HomeGoals > 0:
-                    print(f"  Scorers for {match.HomeTeam.name}: {', '.join(match.HomeScorers)}")
+                    scorers = []
+                    for player , goals in match.HomeScorers.items():
+                        if goals >= 2:
+                            scorers.append(f"{player} {goals}")
+                        else:
+                            scorers.append(player)
+                    print(f"  Scorers for {match.HomeTeam.name}: {', '.join(scorers)}")
                 if match.AwayGoals > 0:
-                    print(f"  Scorers for {match.AwayTeam.name}: {', '.join(match.AwayScorers)}")
-                print("|||||||||||")
+                    scorers = []
+                    for player , goals in match.AwayScorers.items():
+                        if goals >= 2:
+                            scorers.append(f"{player} {goals}")
+                        else:
+                            scorers.append(player)
+                    print(f"  Scorers for {match.AwayTeam.name}: {', '.join(scorers)}")
+                print("\\\\\\\\\\\\\\\\\\")
             print("-----------------")
         
     def resetStats(self) -> None:
