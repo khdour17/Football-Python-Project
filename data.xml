@@ -1,0 +1,242 @@
+<Teams>
+    <Team>
+        <name>Man Utd</name>
+        <players>
+            <player>
+                <name>Onana</name>
+                <age>31</age>
+                <position>GK</position>
+            </player>
+            <player>
+                <name>De Ligt</name>
+                <age>24</age>
+                <position>CB</position>
+            </player>
+            <player>
+                <name>Bruno Fernandes</name>
+                <age>29</age>
+                <position>CAM</position>
+            </player>
+            <player>
+                <name>Marcus Rashford</name>
+                <age>26</age>
+                <position>LW</position>
+            </player>
+        </players>
+        <manager>
+            <name>Ten Hag</name>
+            <age>49</age>
+            <tactics>High-pressing</tactics>
+        </manager>
+    </Team>
+    <Team>
+        <name>Man City</name>
+        <players>
+            <player>
+                <name>Ederson</name>
+                <age>29</age>
+                <position>GK</position>
+            </player>
+            <player>
+                <name>Ruben Dias</name>
+                <age>25</age>
+                <position>CB</position>
+            </player>
+            <player>
+                <name>De Bruyne</name>
+                <age>32</age>
+                <position>CAM</position>
+            </player>
+            <player>
+                <name>Erling Haaland</name>
+                <age>22</age>
+                <position>ST</position>
+            </player>
+        </players>
+        <manager>
+            <name>Pep Guardiola</name>
+            <age>52</age>
+            <tactics>Tici-Taka</tactics>
+        </manager>
+    </Team>
+    <Team>
+        <name>Real Madrid</name>
+        <players>
+            <player>
+                <name>Courtois</name>
+                <age>29</age>
+                <position>CAM</position>
+            </player>
+            <player>
+                <name>Rudiger</name>
+                <age>28</age>
+                <position>CB</position>
+            </player>
+            <player>
+                <name>Luka Modric</name>
+                <age>39</age>
+                <position>CM</position>
+            </player>
+            <player>
+                <name>Mbappe</name>
+                <age>24</age>
+                <position>ST</position>
+            </player>
+        </players>
+        <manager>
+            <name>Carlo Ancelotti</name>
+            <age>65</age>
+            <tactics>Counter Attack</tactics>
+        </manager>
+    </Team>
+    <Team>
+        <name>PSG</name>
+        <players>
+            <player>
+                <name>Donnarumma</name>
+                <age>25</age>
+                <position>GK</position>
+            </player>
+            <player>
+                <name>Marquinhos</name>
+                <age>30</age>
+                <position>CB</position>
+            </player>
+            <player>
+                <name>Vitinha</name>
+                <age>24</age>
+                <position>CM</position>
+            </player>
+            <player>
+                <name>Ousmane Dembele</name>
+                <age>27</age>
+                <position>RW</position>
+            </player>
+        </players>
+        <manager>
+            <name>Luis Enrique</name>
+            <age>54</age>
+            <tactics>High-pressing</tactics>
+        </manager>
+    </Team>
+    <Team>
+        <name>Bayern Munchen</name>
+        <players>
+            <player>
+                <name>Manuel Neuer</name>
+                <age>38</age>
+                <position>GK</position>
+            </player>
+            <player>
+                <name>Joshua Kimmich</name>
+                <age>29</age>
+                <position>RB</position>
+            </player>
+            <player>
+                <name>Thomas Muller</name>
+                <age>34</age>
+                <position>CAM</position>
+            </player>
+            <player>
+                <name>Harry Kane</name>
+                <age>31</age>
+                <position>ST</position>
+            </player>
+        </players>
+        <manager>
+            <name>Vincent Kompany</name>
+            <age>38</age>
+            <tactics> positional play</tactics>
+        </manager>
+    </Team>
+    <Team>
+        <name>Inter Milan</name>
+        <players>
+            <player>
+                <name>Yann Sommer</name>
+                <age>35</age>
+                <position>GK</position>
+            </player>
+            <player>
+                <name>Bastoni</name>
+                <age>25</age>
+                <position>CB</position>
+            </player>
+            <player>
+                <name>Hakan Calhanoglu</name>
+                <age>30</age>
+                <position>CM</position>
+            </player>
+            <player>
+                <name>Lautaro Martinez</name>
+                <age>26</age>
+                <position>ST</position>
+            </player>
+        </players>
+        <manager>
+            <name>Simone Inzaghi</name>
+            <age>48</age>
+            <tactics>Compact defense</tactics>
+        </manager>
+    </Team>
+    <Team>
+        <name>Atletico Madrid</name>
+        <players>
+            <player>
+                <name>Jan Oblak</name>
+                <age>31</age>
+                <position>GK</position>
+            </player>
+            <player>
+                <name>Azpilicueta</name>
+                <age>34</age>
+                <position>CB</position>
+            </player>
+            <player>
+                <name>DE Paul</name>
+                <age>30</age>
+                <position>CM</position>
+            </player>
+            <player>
+                <name>Antoine Griezmann</name>
+                <age>33</age>
+                <position>ST</position>
+            </player>
+        </players>
+        <manager>
+            <name>Diego Simone</name>
+            <age>54</age>
+            <tactics>Park The Bus</tactics>
+        </manager>
+    </Team>
+    <Team>
+        <name>Barcelona</name>
+        <players>
+            <player>
+                <name>Ter Stegen</name>
+                <age>32</age>
+                <position>GK</position>
+            </player>
+            <player>
+                <name>Araujo</name>
+                <age>25</age>
+                <position>CB</position>
+            </player>
+            <player>
+                <name>Pedri</name>
+                <age>21</age>
+                <position>CM</position>
+            </player>
+            <player>
+                <name>Lewandowski</name>
+                <age>35</age>
+                <position>ST</position>
+            </player>
+        </players>
+        <manager>
+            <name>Hans Flick</name>
+            <age>59</age>
+            <tactics>High-pressing</tactics>
+        </manager>
+    </Team>
+</Teams>
