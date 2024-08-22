@@ -22,7 +22,7 @@ class Player(Person):
     def addGoal(self) -> None:
         self.goals += 1
     def __str__(self):
-        return f"{self.name} | {self.age} | {self.position} | goals scored: {self.goals}"
+        return f"{self.name:<15} | {self.age:>2} | {self.position:>3} | goals scored: {self.goals:>2}"
 
 
 class Manager(Person):
@@ -81,11 +81,14 @@ class Team:
         self.goalsFor = 0
         self.goalsAgainst = 0
     
-    def DisplayTeamInfo(self):
-        print(self.name)
-        print(self.manager)
+    def displayTeamInfo(self):
+        print("*"*15)
+        print(f"Team name: {self.name}")
+        print(f"Team manager: {self.manager}")
+        print("Players:")
         for player in self.players:
-            print(player)
+            print(f"    {player}")
+        print("*"*15)
     
     def __str__(self) -> str:
         return f"{self.name:<15} | {self.gamesPlayed:<2} | {self.wins:<2} | {self.draws:<2} | {self.loses:<2} | {self.goalsFor:<2} | {self.goalsAgainst:<2} | {self.points:<2}"
@@ -205,13 +208,12 @@ class League:
         print("-" * 42)
         for scorer in topScorers[:topN]:
             print(f"{scorer[0]:<20} | {scorer[1]:<15} | {scorer[2]:<5}")
-
     
     def displayTable(self) -> None:
         print("\nLeague Standings:")
         print(f"{'Team':<15} | {'P':<2} | {'W':<2} | {'D':<2} | {'L':<2} | {'GF':<2} | {'GA':<2} | {'Pts':<2}")
         print("-" * 51)
-        standings = sorted(self.teams.values(), key = lambda x: (-x.points, x.goalsFor - x.goalsAgainst))
+        standings = sorted(self.teams.values(), key = lambda x: (-x.points, -(x.goalsFor - x.goalsAgainst)))
         for team in standings:
             print(team)
 
@@ -227,9 +229,37 @@ def Main():
         for player in child[1]:
             team.addPlayer(player[0].text,player[1].text,player[2].text)
         team.setManager(child[2][0].text,child[2][1].text,child[2][2].text)
-    league.simulateRounds()
-    league.displayTable()
-    league.displayTopScorers(5)
-    league.resetStats()
     
+    while True:
+        
+        print("Welcome to the Champions League!")
+        print("-"*20)
+        print("Please choose one of the following options:")
+        print("1- Simulate Round and show results")
+        print("2- Show Standings Table")
+        print("3- Show Top 5 Scorers")
+        print("4- Show Info for a certain team")
+        print("5- Reset Stats")
+        print("6- Exit")
+        
+        choice = int(input("Enter a number between 1-6:"))
+        
+        if choice == 1:
+            league.simulateRounds()
+        elif choice == 2:
+            league.displayTable()
+        elif choice == 3:
+            league.displayTopScorers(5)
+        elif choice == 4:
+            name = str(input("please enter the team name:")).strip()
+            if name not in league.teams:
+                print(f"{name} Team does not exist.")
+            league.teams[name].displayTeamInfo()
+        elif choice == 5:
+            league.resetStats()
+            print("League stats heve been reset.")
+        elif choice == 6:
+            break
+        else:
+            print("\nInvalid choice. Please enter a number between 1 and 6.")
 Main()
