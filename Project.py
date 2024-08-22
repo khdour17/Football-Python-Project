@@ -233,7 +233,7 @@ def Main():
     while True:
         
         print("Welcome to the Champions League!")
-        print("-"*20)
+        print("-"*30)
         print("Please choose one of the following options:")
         print("1- Simulate Round and show results")
         print("2- Show Standings Table")
