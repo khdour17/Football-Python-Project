@@ -13,8 +13,8 @@ This Python program simulates a football league, complete with teams, players, m
 2. Simulate Rounds: Choose to simulate matches and see results.
 3. View Standings: Check the league table after simulating rounds.
 4. Top Scorers: See the top goal scorers.
-5.Team Info: Get detailed information about a specific team.
-6.Reset League: Reset all statistics to start over.
+5. Team Info: Get detailed information about a specific team.
+6. Reset League: Reset all statistics to start over.
 
 ## Requirements
 - Python 3.x
