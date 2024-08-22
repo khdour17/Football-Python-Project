@@ -193,8 +193,19 @@ class League:
         for team in self.teams.values():
             team.resetStats()
     
-    def displayTopScorers(self):
-        pass
+    def displayTopScorers(self,topN):
+        topScorers = []
+        for team in self.teams.values():
+           for player in team.players:
+               if player.getGoals() > 0:
+                   topScorers.append((player.name,team.name,player.getGoals())) 
+        topScorers.sort(key = lambda x:-x[2])
+        print("League Top Scoreres:")
+        print(f"{'Player':<20} | {'Team':<15} | {'Goals':<5}")
+        print("-" * 42)
+        for scorer in topScorers[:topN]:
+            print(f"{scorer[0]:<20} | {scorer[1]:<15} | {scorer[2]:<5}")
+
     
     def displayTable(self) -> None:
         print("\nLeague Standings:")
@@ -218,6 +229,7 @@ def Main():
         team.setManager(child[2][0].text,child[2][1].text,child[2][2].text)
     league.simulateRounds()
     league.displayTable()
+    league.displayTopScorers(5)
     league.resetStats()
     
 Main()
