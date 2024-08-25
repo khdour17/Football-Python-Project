@@ -254,7 +254,8 @@ def Main():
             name = str(input("please enter the team name:")).strip()
             if name not in league.teams:
                 print(f"{name} Team does not exist.")
-            league.teams[name].displayTeamInfo()
+            else:
+                league.teams[name].displayTeamInfo()
         elif choice == 5:
             league.resetStats()
             print("League stats heve been reset.")
