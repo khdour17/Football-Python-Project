@@ -150,6 +150,7 @@ class League:
         return "This team has been removed form the league!"
     
     def makeRounds(self):
+        self.rounds.clear()
         teams = list(self.teams.values())
         n = len(teams)
         for i in range(n-1):
