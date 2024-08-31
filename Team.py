@@ -43,6 +43,8 @@ class Team:
         self.loses = 0
         self.goalsFor = 0
         self.goalsAgainst = 0
+        for player in self.players:
+            player.resetGoals()
     
     def displayTeamInfo(self):
         print("*"*15)

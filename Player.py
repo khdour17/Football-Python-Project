@@ -11,5 +11,7 @@ class Player(Person):
         return self.goals
     def addGoal(self) -> None:
         self.goals += 1
+    def resetGoals(self) -> None:
+        self.goals = 0
     def __str__(self):
         return f"{self.name:<15} | {self.age:>2} | {self.position:>3} | goals scored: {self.goals:>2}"
