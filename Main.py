@@ -26,6 +26,7 @@ while True:
     choice = int(input("Enter a number between 1-6:"))
     
     if choice == 1:
+        league.resetStats()
         league.simulateRounds()
     elif choice == 2:
         league.displayTable()
