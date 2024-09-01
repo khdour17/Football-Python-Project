@@ -1,21 +1,35 @@
 # Football League Simulation
-This Python program simulates a football league, complete with teams, players, managers, and matches. The program reads team and player information from an XML file and allows users to simulate match rounds, display league standings, and view top scorers.
+This Python project simulates a football (soccer) league using PyQt5 for the graphical user interface (GUI). The program allows users to simulate rounds, track team standings, and display top goal scorers.
 
 ## Features
-- Team Management: Add teams, players, and managers.
-- Match Simulation: Randomized match outcomes with goal scorers.
-- League Standings: View the current standings table.
-- Top Scorers: Display the top 5 goal scorers in the league.
+- League Management: Add, remove, and manage teams.
+- Match Simulation: Simulate matches and update team statistics.
+- League Table: View the league table with team standings.
+- Top Scorers: Display the top goal scorers in the league.
 - Reset Stats: Reset all league statistics.
 
+## Installation
+1. Clone the repository:
+     git clone https://github.com/khdour17/Football-Python-Project
+2. Install the required packages:
+     pip install -r requirements.txt
+3. Run the application:
+     python run Main.py
+   
 ## How to Use
-1. Run the Program: The program will start with a menu offering several options.
-2. Simulate Rounds: Choose to simulate matches and see results.
-3. View Standings: Check the league table after simulating rounds.
-4. Top Scorers: See the top goal scorers.
-5. Team Info: Get detailed information about a specific team.
-6. Reset League: Reset all statistics to start over.
+1. Load the league data: The league data is loaded from an XML file (data.xml). Teams and players are automatically added to the league.
+2. Simulate Rounds: Click on the Simulate button to simulate the league rounds. The results will be displayed in the logs, and the league table will be updated.
+3. Reset League: Use the Reset button to clear all current league stats.
+4. Search for a Team: Use the Search button to find a team and view detailed information about its players and manager.
 
-## Requirements
+## Screenshots
+- Main Window Screen before simulation:  ![screenshot of the main window](https://github.com/khdour17/Football-Python-Project/blob/main/Screenshots/main%20window%20.png?raw=true)
+- Main Window Screen after simulation:  ![screenshot of the main window after simulation](https://github.com/khdour17/Football-Python-Project/blob/main/Screenshots/main%20window%20simulated.png?raw=true)
+- Search Screen: ![screenshot of the Search Screen](https://github.com/khdour17/Football-Python-Project/blob/main/Screenshots/Search%20Screen.png?raw=true)
+- Search Screen after searching for PSG: ![screenshot of the Search Screen results](https://github.com/khdour17/Football-Python-Project/blob/main/Screenshots/Search%20Screen%20used.png?raw=true)
+
+## Dependencies
 - Python 3.x
+- PyQt5
+- xml.etree.ElementTree
 - An XML file named data.xml containing the team, player, and manager information.
