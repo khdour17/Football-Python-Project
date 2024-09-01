@@ -10,6 +10,7 @@ class Person:
 
 
 class Player(Person):
+    
     def __init__(self,name,age,position) -> None:
         self.position = position
         self.goals = 0
@@ -17,14 +18,19 @@ class Player(Person):
     
     def getPos(self) -> str:
         return self.position
+    
     def getGoals(self) -> int:
         return self.goals
+    
     def addGoal(self) -> None:
         self.goals += 1
+    
     def resetGoals(self) -> None:
         self.goals = 0
+    
     def __str__(self):
         return f"{self.name:<15} | {self.age:>2} | {self.position:>3} | goals scored: {self.goals:>2}"
+ 
 
 
 class Manager(Person):
@@ -37,7 +43,7 @@ class Manager(Person):
 
     def __str__(self) -> str:
         return f"{self.name} | {self.age} | tactics: {self.tactics}"
-
+    
 
 class Team:
     def __init__(self,name) -> None:
@@ -85,18 +91,19 @@ class Team:
         for player in self.players:
             player.resetGoals()
     
-    def displayTeamInfo(self):
-        print("*"*15)
-        print(f"Team name: {self.name}")
-        print(f"Team manager: {self.manager}")
-        print("Players:")
+    def displayTeamInfo(self, logWidget):
+        
+        logWidget.append(f"Team name: {str(self.name)}")
+        logWidget.append(f"Team manager: {str(self.manager)}")
+        logWidget.append("Players:")
         for player in self.players:
-            print(f"    {player}")
-        print("*"*15)
+            logWidget.append(f"    {str(player)}")
+        
     
     def __str__(self) -> str:
         return f"{self.name:<15} | {self.gamesPlayed:<2} | {self.wins:<2} | {self.draws:<2} | {self.loses:<2} | {self.goalsFor:<2} | {self.goalsAgainst:<2} | {self.points:<2}"
-            
+     
+         
 
 
 import random
@@ -133,7 +140,7 @@ class Match:
         
     def __str__(self):
         return (f"{self.HomeTeam.name} {self.HomeGoals} - {self.AwayGoals} {self.AwayTeam.name}" )
-
+    
 
 class League:
     def __init__(self,name) -> None:
@@ -171,13 +178,13 @@ class League:
             secondHalf.append(newRound)
         self.rounds.extend(secondHalf)
     
-    def simulateRounds(self):
+    def simulateRounds(self,logWidget):
         self.makeRounds()
         for round_number, round_matches in enumerate(self.rounds, 1):
-            print(f"Round number: {round_number}")
+            logWidget.append(f"Round number: {round_number}")
             for match in round_matches:
                 match.simulateMatch()
-                print(match)
+                logWidget.append(str(match))
                 if match.HomeGoals > 0:
                     scorers = []
                     for player , goals in match.HomeScorers.items():
@@ -185,7 +192,7 @@ class League:
                             scorers.append(f"{player} {goals}")
                         else:
                             scorers.append(player)
-                    print(f"  Scorers for {match.HomeTeam.name}: {', '.join(scorers)}")
+                    logWidget.append(f"  Scorers for {match.HomeTeam.name}: {', '.join(scorers)}")
                 if match.AwayGoals > 0:
                     scorers = []
                     for player , goals in match.AwayScorers.items():
@@ -193,80 +200,126 @@ class League:
                             scorers.append(f"{player} {goals}")
                         else:
                             scorers.append(player)
-                    print(f"  Scorers for {match.AwayTeam.name}: {', '.join(scorers)}")
-                print("\\\\\\\\\\\\\\\\\\")
-            print("-----------------")
+                    logWidget.append(f"  Scorers for {match.AwayTeam.name}: {', '.join(scorers)}")
+                logWidget.append("\\\\\\\\\\\\\\\\\\")
+            logWidget.append("-----------------")
         
     def resetStats(self) -> None:
         for team in self.teams.values():
             team.resetStats()
     
-    def displayTopScorers(self,topN):
+    def displayTopScorers(self,topN,logWidget):
         topScorers = []
         for team in self.teams.values():
            for player in team.players:
                if player.getGoals() > 0:
                    topScorers.append((player.name,team.name,player.getGoals())) 
         topScorers.sort(key = lambda x:-x[2])
-        print("League Top Scoreres:")
-        print(f"{'Player':<20} | {'Team':<15} | {'Goals':<5}")
-        print("-" * 42)
-        for scorer in topScorers[:topN]:
-            print(f"{scorer[0]:<20} | {scorer[1]:<15} | {scorer[2]:<5}")
+        for idx,player in enumerate(topScorers[:topN]):
+            logWidget.append(f"{idx+1}. {player[0]:<15} | {player[1]:<15} | {player[2]:<2} goals")
+        
     
-    def displayTable(self) -> None:
-        print("\nLeague Standings:")
-        print(f"{'Team':<15} | {'P':<2} | {'W':<2} | {'D':<2} | {'L':<2} | {'GF':<2} | {'GA':<2} | {'Pts':<2}")
-        print("-" * 51)
+    def displayTable(self,tableWidget) -> None:
+        
         standings = sorted(self.teams.values(), key = lambda x: (-x.points, -(x.goalsFor - x.goalsAgainst)))
+        row=0
+        tableWidget.setRowCount(len(standings))
         for team in standings:
-            print(team)
+            tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(team.name))
+            tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(str(team.gamesPlayed)))
+            tableWidget.setItem(row, 2, QtWidgets.QTableWidgetItem(str(team.wins)))
+            tableWidget.setItem(row, 3, QtWidgets.QTableWidgetItem(str(team.draws)))
+            tableWidget.setItem(row, 4, QtWidgets.QTableWidgetItem(str(team.loses)))
+            tableWidget.setItem(row, 5, QtWidgets.QTableWidgetItem(str(team.goalsFor)))
+            tableWidget.setItem(row, 6, QtWidgets.QTableWidgetItem(str(team.goalsAgainst)))
+            tableWidget.setItem(row, 7, QtWidgets.QTableWidgetItem(str(team.points)))
+            row += 1
+
+
+import sys
+from PyQt5.uic import loadUi
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog, QApplication
+
+class MainWindow(QDialog):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        loadUi("MainWindow.ui",self)
+        self.tableWidget.setColumnWidth(0,158)
+        self.tableWidget.setColumnWidth(1,50)
+        self.tableWidget.setColumnWidth(2,50)
+        self.tableWidget.setColumnWidth(3,50)
+        self.tableWidget.setColumnWidth(4,50)
+        self.tableWidget.setColumnWidth(5,50)
+        self.tableWidget.setColumnWidth(6,50)
+        self.tableWidget.setColumnWidth(7,50)
+        self.tableWidget.setColumnWidth(8,50)
+        self.LoadTableData()
+        self.SimulateButton.clicked.connect(self.Simulation)
+        self.ResetButton.clicked.connect(self.Reset)
+        self.SearchButton.clicked.connect(self.openSearchWindow)
+    
+    def LoadTableData(self):
+        league.displayTable(self.tableWidget)
+
+    def Simulation(self):
+        league.resetStats()
+        self.RoundResultLog.clear() 
+        self.GoalsScorersLog.clear()  
+        self.tableWidget.clearContents()
+        league.simulateRounds(self.RoundResultLog)
+        league.displayTopScorers(5,self.GoalsScorersLog)
+        self.LoadTableData()
+    
+    def Reset(self):
+        league.resetStats()
+        self.RoundResultLog.clear() 
+        self.GoalsScorersLog.clear()  
+        self.tableWidget.clearContents()
+        self.LoadTableData()
+    
+    def openSearchWindow(self):
+        self.window = SearchScreen()
+        self.window.show()
+
+class SearchScreen(QDialog):
+    def __init__(self) -> None:
+        super(SearchScreen, self).__init__()
+        loadUi("SearchScreen.ui",self)
+        self.SearchButton.clicked.connect(self.showTeamInfo)
+
+    def showTeamInfo(self):
+        self.TeamInfoLog.clear()
+        name = self.SearchBar.text().strip()
+        if name not in league.teams:
+            self.TeamInfoLog.append("This team does not exsit!")
+        else:
+            league.teams[name].displayTeamInfo(self.TeamInfoLog)
+        self.SearchBar.clear()
+
+
 
 import xml.etree.ElementTree as ET
 
-def Main():
-    league = League("Champions League")
-    tree = ET.parse('data.xml')
-    root = tree.getroot()
-    for child in root:
-        team = Team(child[0].text)
-        league.addTeam(team)
-        for player in child[1]:
-            team.addPlayer(player[0].text,player[1].text,player[2].text)
-        team.setManager(child[2][0].text,child[2][1].text,child[2][2].text)
-    
-    while True:
-        
-        print("Welcome to the Champions League!")
-        print("-"*30)
-        print("Please choose one of the following options:")
-        print("1- Simulate Round and show results")
-        print("2- Show Standings Table")
-        print("3- Show Top 5 Scorers")
-        print("4- Show Info for a certain team")
-        print("5- Reset Stats")
-        print("6- Exit")
-        
-        choice = int(input("Enter a number between 1-6:"))
-        
-        if choice == 1:
-            league.resetStats()
-            league.simulateRounds()
-        elif choice == 2:
-            league.displayTable()
-        elif choice == 3:
-            league.displayTopScorers(5)
-        elif choice == 4:
-            name = str(input("please enter the team name:")).strip()
-            if name not in league.teams:
-                print(f"{name} Team does not exist.")
-            else:
-                league.teams[name].displayTeamInfo()
-        elif choice == 5:
-            league.resetStats()
-            print("League stats heve been reset.")
-        elif choice == 6:
-            break
-        else:
-            print("\nInvalid choice. Please enter a number between 1 and 6.")
-Main()
+league = League("Champions League")
+tree = ET.parse('data.xml')
+root = tree.getroot()
+for child in root:
+    team = Team(child[0].text)
+    league.addTeam(team)
+    for player in child[1]:
+        team.addPlayer(player[0].text,player[1].text,player[2].text)
+    team.setManager(child[2][0].text,child[2][1].text,child[2][2].text)
+
+
+app = QApplication(sys.argv)
+mainwindow = MainWindow()
+widget = QtWidgets.QStackedWidget()
+widget.addWidget(mainwindow)
+widget.setFixedHeight(575)
+widget.setFixedWidth(840)
+widget.show()
+try:
+    sys.exit(app.exec_())
+except:
+    print("Exiting")

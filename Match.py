@@ -33,3 +33,4 @@ class Match:
         
     def __str__(self):
         return (f"{self.HomeTeam.name} {self.HomeGoals} - {self.AwayGoals} {self.AwayTeam.name}" )
+ 

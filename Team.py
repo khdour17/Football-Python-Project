@@ -46,14 +46,14 @@ class Team:
         for player in self.players:
             player.resetGoals()
     
-    def displayTeamInfo(self):
-        print("*"*15)
-        print(f"Team name: {self.name}")
-        print(f"Team manager: {self.manager}")
-        print("Players:")
+    def displayTeamInfo(self, logWidget):
+        
+        logWidget.append(f"Team name: {str(self.name)}")
+        logWidget.append(f"Team manager: {str(self.manager)}")
+        logWidget.append("Players:")
         for player in self.players:
-            print(f"    {player}")
-        print("*"*15)
+            logWidget.append(f"    {str(player)}")
+        
     
     def __str__(self) -> str:
         return f"{self.name:<15} | {self.gamesPlayed:<2} | {self.wins:<2} | {self.draws:<2} | {self.loses:<2} | {self.goalsFor:<2} | {self.goalsAgainst:<2} | {self.points:<2}"

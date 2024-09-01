@@ -2,6 +2,8 @@ from Player import *
 from Manager import *
 from Team import *
 from Match import *
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog, QApplication
 class League:
     def __init__(self,name) -> None:
         self.name = name
@@ -38,13 +40,13 @@ class League:
             secondHalf.append(newRound)
         self.rounds.extend(secondHalf)
     
-    def simulateRounds(self):
+    def simulateRounds(self,logWidget):
         self.makeRounds()
         for round_number, round_matches in enumerate(self.rounds, 1):
-            print(f"Round number: {round_number}")
+            logWidget.append(f"Round number: {round_number}")
             for match in round_matches:
                 match.simulateMatch()
-                print(match)
+                logWidget.append(str(match))
                 if match.HomeGoals > 0:
                     scorers = []
                     for player , goals in match.HomeScorers.items():
@@ -52,7 +54,7 @@ class League:
                             scorers.append(f"{player} {goals}")
                         else:
                             scorers.append(player)
-                    print(f"  Scorers for {match.HomeTeam.name}: {', '.join(scorers)}")
+                    logWidget.append(f"  Scorers for {match.HomeTeam.name}: {', '.join(scorers)}")
                 if match.AwayGoals > 0:
                     scorers = []
                     for player , goals in match.AwayScorers.items():
@@ -60,31 +62,37 @@ class League:
                             scorers.append(f"{player} {goals}")
                         else:
                             scorers.append(player)
-                    print(f"  Scorers for {match.AwayTeam.name}: {', '.join(scorers)}")
-                print("\\\\\\\\\\\\\\\\\\")
-            print("-----------------")
+                    logWidget.append(f"  Scorers for {match.AwayTeam.name}: {', '.join(scorers)}")
+                logWidget.append("\\\\\\\\\\\\\\\\\\")
+            logWidget.append("-----------------")
         
     def resetStats(self) -> None:
         for team in self.teams.values():
             team.resetStats()
     
-    def displayTopScorers(self,topN):
+    def displayTopScorers(self,topN,logWidget):
         topScorers = []
         for team in self.teams.values():
            for player in team.players:
                if player.getGoals() > 0:
                    topScorers.append((player.name,team.name,player.getGoals())) 
         topScorers.sort(key = lambda x:-x[2])
-        print("League Top Scoreres:")
-        print(f"{'Player':<20} | {'Team':<15} | {'Goals':<5}")
-        print("-" * 42)
-        for scorer in topScorers[:topN]:
-            print(f"{scorer[0]:<20} | {scorer[1]:<15} | {scorer[2]:<5}")
+        for idx,player in enumerate(topScorers[:topN]):
+            logWidget.append(f"{idx+1}. {player[0]:<15} | {player[1]:<15} | {player[2]:<2} goals")
+        
     
-    def displayTable(self) -> None:
-        print("\nLeague Standings:")
-        print(f"{'Team':<15} | {'P':<2} | {'W':<2} | {'D':<2} | {'L':<2} | {'GF':<2} | {'GA':<2} | {'Pts':<2}")
-        print("-" * 51)
+    def displayTable(self,tableWidget) -> None:
+        
         standings = sorted(self.teams.values(), key = lambda x: (-x.points, -(x.goalsFor - x.goalsAgainst)))
+        row=0
+        tableWidget.setRowCount(len(standings))
         for team in standings:
-            print(team)
+            tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(team.name))
+            tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(str(team.gamesPlayed)))
+            tableWidget.setItem(row, 2, QtWidgets.QTableWidgetItem(str(team.wins)))
+            tableWidget.setItem(row, 3, QtWidgets.QTableWidgetItem(str(team.draws)))
+            tableWidget.setItem(row, 4, QtWidgets.QTableWidgetItem(str(team.loses)))
+            tableWidget.setItem(row, 5, QtWidgets.QTableWidgetItem(str(team.goalsFor)))
+            tableWidget.setItem(row, 6, QtWidgets.QTableWidgetItem(str(team.goalsAgainst)))
+            tableWidget.setItem(row, 7, QtWidgets.QTableWidgetItem(str(team.points)))
+            row += 1
