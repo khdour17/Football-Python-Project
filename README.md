@@ -10,11 +10,11 @@ This Python project simulates a football (soccer) league using PyQt5 for the gra
 
 ## Installation
 1. Clone the repository:
-     '''git clone https://github.com/khdour17/Football-Python-Project'''
+     `git clone https://github.com/khdour17/Football-Python-Project`
 2. Install the required packages:
-     '''pip install -r requirements.txt'''
+     `pip install -r requirements.txt`
 3. Run the application:
-     '''python run Main.py'''
+     `python run Main.py`
    
 ## How to Use
 1. Load the league data: The league data is loaded from an XML file (data.xml). Teams and players are automatically added to the league.
